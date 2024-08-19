@@ -5,9 +5,9 @@ import shlex
 import json
 
 def shcmd(cmd, ignore_error=False):
-    print 'Doing:', cmd
+    print ('Doing:', cmd)
     ret = subprocess.call(cmd, shell=True)
-    print 'Returned', ret, cmd
+    print ('Returned', ret, cmd)
     if ignore_error == False and ret != 0:
         exit(ret)
     return ret
@@ -150,7 +150,7 @@ def read_byte_range(filepath, start, size):
 
 def display_binary(data):
     for v in data:
-        print '{v}({h})'.format(v=v, h=hex(v)),
+        print ('{v}({h})'.format(v=v, h=hex(v)))
 
 
 def run_cmd_on_nodes(cmd, nodes, sync, id_map, do_not_run=False):
@@ -163,7 +163,7 @@ def run_cmd_on_nodes(cmd, nodes, sync, id_map, do_not_run=False):
     """
     procs = {}
     for node_id in nodes:
-        print '----------', node_id, '----------'
+        print ('----------', node_id, '----------')
         p = run_cmd_on_node(cmd, node_id, sync, id_map, do_not_run)
         if not p is None:
             procs[node_id] = p
@@ -171,22 +171,22 @@ def run_cmd_on_nodes(cmd, nodes, sync, id_map, do_not_run=False):
     # wait
     for node_id, p in procs.items():
         ret = p.wait()
-        print 'Node', node_id, 'returned', ret
+        print ('Node', node_id, 'returned', ret)
 
 
 def run_cmd_on_node(cmd, node_id, sync, id_map, do_not_run):
     cmd = "ssh {host} '{cmd}'".format(host=id_map[node_id], cmd=cmd)
 
     if do_not_run is True:
-        print cmd
+        print (cmd)
         return None
 
     if sync is True:
-        print 'sync', cmd
+        print ('sync', cmd)
         shcmd(cmd)
         return None
     else:
-        print 'async', cmd
+        print ('async', cmd)
         p = subprocess.Popen(cmd, shell=True)
         return p
 

@@ -134,7 +134,7 @@ class SimulatorNonDES(Simulator):
             self.process_event(event)
             cnt += 1
             if cnt % 5000 == 0:
-                print '|',
+                print ('|')
                 sys.stdout.flush()
 
         self.ftl.post_processing()
@@ -245,7 +245,7 @@ class SimulatorNonDESe2e(SimulatorNonDES):
                         read = sec_data,
                         correct = self.lsn_to_data.get(sec, None),
                         sec = sec)
-                print msg
+                print (msg)
                 # raise RuntimeError(msg)
 
     def discard(self, event):

@@ -15,9 +15,9 @@ import glob
 from pyreuse.helpers import table_to_str
 
 def shcmd(cmd, ignore_error=False):
-    print 'Doing:', cmd
+    print ('Doing:', cmd)
     ret = subprocess.call(cmd, shell=True)
-    print 'Returned', ret, cmd
+    print ('Returned', ret, cmd)
     if ignore_error == False and ret != 0:
         raise RuntimeError("Failed to execute {}. Return code:{}".format(
             cmd, ret))
@@ -95,7 +95,7 @@ def ParameterCombinations(parameter_dict):
 def debug_decor(function):
     def wrapper(*args, **kwargs):
         ret = function(*args, **kwargs)
-        print function.__name__, args, kwargs, 'ret:', ret
+        print (function.__name__, args, kwargs, 'ret:', ret)
         return ret
     return wrapper
 

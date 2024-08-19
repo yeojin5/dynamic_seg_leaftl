@@ -46,7 +46,7 @@ class Config(dict):
             self.update(confdic)
 
     def show(self):
-        print self
+        print (self)
 
     def load_from_dict(self, dic):
         super(Config, self).clear()
@@ -155,8 +155,8 @@ class Config(dict):
         rem = size_byte % \
             (self['flash_page_size'] * self['flash_npage_per_block'])
 
-        print 'WARNING: set_flash_num_blocks_by_bytes() cannot set to '\
-            'exact bytes. rem:', rem
+        print ('WARNING: set_flash_num_blocks_by_bytes() cannot set to '\
+            'exact bytes. rem:', rem)
         self['flash_num_blocks'] = nblocks
 
 
@@ -492,8 +492,8 @@ class ConfigNewFlash(Config):
         nblocks = size_byte / (pagesize * n_pages_per_block)
         rem = size_byte % (pagesize * n_pages_per_block)
         if rem != 0:
-            print 'WARNING: set_flash_num_blocks_by_bytes() cannot set to '\
-                'exact bytes. rem:', rem
+            print ('WARNING: set_flash_num_blocks_by_bytes() cannot set to '\
+                'exact bytes. rem:', rem)
 
         # change only n_blocks_per_plane
         fconf = self['flash_config']

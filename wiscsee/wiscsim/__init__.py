@@ -1,4 +1,4 @@
-import simulator
+from . import simulator
 from utilities import utils
 import ssdframework
 import hostevent
