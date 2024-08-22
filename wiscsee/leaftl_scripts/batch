@@ -86,7 +86,7 @@ class BatchArgGenerator:
         self.num_batches = 0
         self.runned_batches = 0
         self.name = name
-        self.output = f"{OUTPUT_PATH}/{name}/"
+        self.output = f"{OUTPUT_PATH}/memory_batch_512/" # yj
         if not os.path.exists(self.output):
             #shutil.rmtree(self.output)
             os.mkdir(self.output)

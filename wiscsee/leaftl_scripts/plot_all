@@ -65,24 +65,32 @@ def plot_memory(data, traces, ftls, filename, log=False):
     for i in range(0, len(ftls)):
         ax.bar(X + width*i, data[:, i], color = colors[i], width = width, label=ftls[i], edgecolor = 'black', hatch=hatches[i], rasterized=False, zorder=3)
 
-    ymax = max(data[:, 0]) * 1.2
-    if ymax <= 2:
-        ytickgap = 0.2
-    else:
-        ytickgap = 4.0
+    Y = data
+    print(Y)
+    # ymax = max(data[:, 0]) * 1.2
+    #if ymax <= 2:
+        #ytickgap = 0.2
+    #else:
+        #ytickgap = 4.0
     ax.set_xticks(X + width * 1.5)
     ax.set_xticklabels(traces, ha = "right", rotation=15)
-    ax.set_ylabel("Memory Footprint \nReduction")
+    #ax.set_ylabel("Memory Footprint \nReduction")
+    ax.set_ylabel("Memory Footprint")
     legend = ax.legend(loc="upper center", prop={'size':7}, ncol = 5, borderaxespad=0.)
     legend.draw_frame(False)
-    if log:
-        ax.set_yscale('log')
-        ax.set_ylim( (pow(10,-2),2*pow(10,0)) )
-        ax.set_yticks([1/50,1/20,1/10,1/5,1/2,1])
-        ax.set_yticklabels(reversed(["1x","2x","5x","10x","20x","50x"]))
-    else:
-        ax.set_ylim([0,ymax])
-        ax.set_yticks(np.arange(0, ymax, ytickgap))
+    #if log:
+    #    ax.set_yscale('log')
+    #    ax.set_ylim( (pow(10,-2),2*pow(10,0)) )
+    #    ax.set_yticks([1/50,1/20,1/10,1/5,1/2,1])
+    #    ax.set_yticklabels(reversed(["1x","2x","5x","10x","20x","50x"]))
+    #else:
+    #ax.set_ylim([0,Y])
+    #ax.set_yscale('log')
+    ymin = np.min(data)
+    ymax = np.max(data)
+    #ax.set_ylim([ymin,ymax])
+    ytickgap = (ymax - ymin) / 5
+    ax.set_yticks(np.arange(ymin, ymax + ytickgap, ytickgap))
     ax.grid(axis = 'y', linestyle='--', zorder=0)
 
 
@@ -253,13 +261,15 @@ if __name__ == "__main__":
 
     if "memory_batch" in batch_name:
         memory_df = pd.DataFrame(memory)
-        memory_df = memory_df.reindex(['dftldes', 'sftl', 'learnedftl-0'])
+        #memory_df = memory_df.reindex(['dftldes', 'sftl', 'learnedftl-0'])
+        memory_df = memory_df.reindex(['learnedftl-0'])
         memory_df = memory_df.sort_index(axis=1)
         memory_arr = np.transpose(memory_df.to_numpy(dtype=float))
-        for i in range(memory_arr.shape[0]):
-            memory_arr[i, :] = memory_arr[i, :] / memory_arr[i, 0]
-        
-        plot_memory(memory_arr, memory_df.columns, ['DFTL', 'SFTL', 'LeaFTL'], "memory", log=True)
+        #for i in range(memory_arr.shape[0]):
+            #memory_arr[i, :] = memory_arr[i, :] / memory_arr[i, 0]
+        print(memory_arr) 
+        #plot_memory(memory_arr, memory_df.columns, ['DFTL', 'SFTL', 'LeaFTL'], "memory", log=True)
+        plot_memory(memory_arr, memory_df.columns, ['LeaFTL'], "memory", log=True)
             
     if "main_batch" in batch_name:
         latency_df = pd.DataFrame(latencies)

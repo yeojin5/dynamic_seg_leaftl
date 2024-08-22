@@ -1299,7 +1299,7 @@ class PLR():
 
     def __init__(self, gamma):
         self.gamma = gamma
-        self.max_length = 256
+        self.max_length = 512
         self.init()
 
     def init(self):
