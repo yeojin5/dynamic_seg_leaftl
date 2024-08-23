@@ -1300,6 +1300,7 @@ class PLR():
     def __init__(self, gamma):
         self.gamma = gamma
         self.max_length = 512
+        print self.max_length
         self.init()
 
     def init(self):
@@ -1665,7 +1666,7 @@ class LogPLR():
 # Each LogPLR is responsible for one range
 class FrameLogPLR:
     ON_FLASH, CLEAN, DIRTY = "ON_FLASH", "CLEAN", "DIRTY"
-    def __init__(self, conf, metadata, counter, gamma, max_size=1*1024**2, frame_length=256):
+    def __init__(self, conf, metadata, counter, gamma, max_size=1*1024**2, frame_length=512):
         global SUBLPN_BYTES
         SUBLPN_BYTES = 1
         self.conf = conf
@@ -1686,7 +1687,7 @@ class FrameLogPLR:
             self.frame_length = 1024
         else:
             self.type = "learnedftl"
-            self.frame_length = 256
+            self.frame_length = 512
 
         self.GTD = dict()
         self.current_trans_block = None
